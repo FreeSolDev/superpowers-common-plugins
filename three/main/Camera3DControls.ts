@@ -1,3 +1,4 @@
+import * as THREE from "three";
 import Camera from "./Camera";
 
 const tmpVector3 = new THREE.Vector3();

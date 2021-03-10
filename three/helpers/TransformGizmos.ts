@@ -1,3 +1,4 @@
+import * as THREE from "three";
 const lineRadius = 0.015;
 
 type ColorName = "white"|"red"|"green"|"blue"|"yellow"|"cyan"|"magenta";

@@ -1,3 +1,4 @@
+import * as THREE from "three";
 export default class TransformMarker {
   private line: THREE.LineSegments;
 
@@ -17,8 +18,8 @@ export default class TransformMarker {
 
   move(target: THREE.Object3D) {
     this.line.visible = true;
-    this.line.position.copy(target.getWorldPosition());
-    this.line.quaternion.copy(target.getWorldQuaternion());
+    this.line.position.copy(target.getWorldPosition(new THREE.Vector3()));
+    this.line.quaternion.copy(target.getWorldQuaternion(new THREE.Quaternion()));
     this.line.updateMatrixWorld(false);
     return this;
   }

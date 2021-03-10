@@ -1,3 +1,5 @@
+import * as THREE from "three";
+
 export default class SelectionBoxRenderer {
   private mesh: THREE.Mesh;
   private target: THREE.Object3D;
@@ -16,8 +18,8 @@ export default class SelectionBoxRenderer {
   }
 
   move() {
-    this.mesh.position.copy(this.target.getWorldPosition());
-    this.mesh.quaternion.copy(this.target.getWorldQuaternion());
+    this.target.getWorldPosition(this.mesh.position);
+    this.target.getWorldQuaternion(this.mesh.quaternion);
     this.mesh.updateMatrixWorld(false);
     return this;
   }
@@ -25,7 +27,11 @@ export default class SelectionBoxRenderer {
   resize() {
     const vec = new THREE.Vector3();
     const box = new THREE.Box3();
-    const inverseTargetMatrixWorld = new THREE.Matrix4().compose(this.target.getWorldPosition(), this.target.getWorldQuaternion(), { x: 1, y: 1, z: 1 } as THREE.Vector3);
+    const inverseTargetMatrixWorld = new THREE.Matrix4().compose(
+      this.target.getWorldPosition(new THREE.Vector3()),
+      this.target.getWorldQuaternion(new THREE.Quaternion()),
+      { x: 1, y: 1, z: 1 } as THREE.Vector3
+    );
 
     inverseTargetMatrixWorld.getInverse(inverseTargetMatrixWorld);
 
@@ -55,7 +61,7 @@ export default class SelectionBoxRenderer {
       }
     });
 
-    const size = box.getSize();
+    const size = box.getSize(new THREE.Vector3());
     const thickness = 0.1;
     this.mesh.scale.copy(size).add(new THREE.Vector3(thickness, thickness, thickness));
     this.mesh.updateMatrixWorld(false);

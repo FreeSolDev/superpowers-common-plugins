@@ -3,6 +3,7 @@
  * Rewritten in TypeScript and modified by bilou84
  */
 
+import * as THREE from "three";
 import { TransformGizmo, TransformGizmoTranslate, TransformGizmoRotate, TransformGizmoScale, TransformGizmoResize } from "./TransformGizmos";
 
 const ray = new THREE.Raycaster();
@@ -193,8 +194,8 @@ export default class TransformControls extends THREE.Object3D {
     if (this.target == null) return;
 
     if (copyTarget) {
-      this.root.position.copy(this.target.getWorldPosition());
-      this.root.quaternion.copy(this.target.getWorldQuaternion());
+      this.target.getWorldPosition(this.root.position);
+      this.target.getWorldQuaternion(this.root.quaternion);
 
       const width = this.target.userData.width;
       const height = this.target.userData.height;

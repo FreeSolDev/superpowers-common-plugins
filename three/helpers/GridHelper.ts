@@ -1,3 +1,5 @@
+import * as THREE from "three";
+
 export default class GridHelper {
   private gridHelper: THREE.GridHelper;
 

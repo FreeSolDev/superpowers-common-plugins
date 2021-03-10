@@ -1,3 +1,4 @@
+import * as THREE from "three";
 import Camera from "./Camera";
 
 export default class Camera2DControls {
