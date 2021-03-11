@@ -11,9 +11,9 @@
     "build": "gulp --gulpfile=../../../../../scripts/pluginGulpfile.js --cwd=."
   },
   "dependencies": {
-    "marked": "^0.6.1"
+    "marked": "^2.0.1"
   },
   "devDependencies": {
-    "@types/marked": "^0.6.2"
+    "@types/marked": "^2.0.0"
   }
 }
