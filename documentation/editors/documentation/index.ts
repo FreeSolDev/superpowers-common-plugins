@@ -1,5 +1,9 @@
 import * as async from "async";
 import * as marked from "marked";
+// @ts-ignore
+import * as hljs from "highlight.js/lib/core";
+// @ts-ignore
+import  * as hljsTypescript from "highlight.js/lib/languages/typescript";
 
 let data: {
   projectClient: SupClient.ProjectClient;
@@ -8,6 +12,8 @@ let data: {
 const socket = SupClient.connect(SupClient.query.project);
 socket.on("welcome", onWelcome);
 socket.on("disconnect", SupClient.onDisconnected);
+
+hljs.registerLanguage("typescript", hljsTypescript);
 
 let loaded = false;
 let initialSection: string;
@@ -74,8 +80,8 @@ function setupDocs() {
     articleElt.id = `documentation-${name}`;
     mainElt.appendChild(articleElt);
 
-    function onDocumentationLoaded(content: string) {
-      articleElt.innerHTML = marked(content);
+    function onDocumentationLoaded(content: string, root: string) {
+      articleElt.innerHTML = marked(content, { baseUrl: root });
 
       const translatedName = articleElt.firstElementChild.textContent;
       anchorElt.textContent = translatedName;
@@ -87,6 +93,10 @@ function setupDocs() {
         const linkElts = articleElt.querySelectorAll("a") as any as HTMLAnchorElement[];
         for (const linkElt of linkElts) linkElt.target = "_blank";
       }
+
+      articleElt.querySelectorAll("pre code").forEach((block: HTMLElement) => {
+        hljs.highlightElement(block);
+      });
       cb(null);
     }
 
@@ -94,11 +104,11 @@ function setupDocs() {
     SupClient.fetch(`${pluginPath}/documentation/${name}.${languageCode}.md`, "text", (err, data) => {
       if (err != null) {
         SupClient.fetch(`${pluginPath}/documentation/${name}.en.md`, "text", (err, data) => {
-          onDocumentationLoaded(data);
+          onDocumentationLoaded(data, `${pluginPath}/documentation/`);
         });
         return;
       }
-      onDocumentationLoaded(data);
+      onDocumentationLoaded(data, `${pluginPath}/documentation/`);
     });
   }, () => {
     const sortedNames = Object.keys(liEltsByTranslatedName).sort((a, b) => { return (a.toLowerCase() < b.toLowerCase()) ? -1 : 1; });
