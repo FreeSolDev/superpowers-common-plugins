@@ -304,9 +304,9 @@ export default class Camera3DControls {
     // Update marker
     if (this.orbitPivot.distanceTo(this.targetOrbitPivot) > 0.1 ||
     Math.abs(this.orbitRadius - this.targetOrbitRadius) > 0.1 || this.isOrbiting || this.wantToPan) {
-      this.pivotMarker.material.opacity = 0.5;
+      (this.pivotMarker.material as THREE.Material).opacity = 0.5;
     } else {
-      this.pivotMarker.material.opacity *= 1 - lerpFactor;
+      (this.pivotMarker.material as THREE.Material).opacity *= 1 - lerpFactor;
     }
 
     this.pivotMarker.position.copy(this.orbitPivot);

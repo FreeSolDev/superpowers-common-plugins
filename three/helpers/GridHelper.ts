@@ -11,15 +11,15 @@ export default class GridHelper {
     if (this.gridHelper != null) {
       this.root.remove(this.gridHelper);
       this.gridHelper.geometry.dispose();
-      this.gridHelper.material.dispose();
+      (this.gridHelper.material as THREE.Material).dispose();
     }
 
     const divisions = Math.ceil(size / step);
     const actualSize = divisions * step;
 
     this.gridHelper = new THREE.GridHelper(actualSize, divisions, 0xffffff, 0xffffff);
-    this.gridHelper.material.transparent = true;
-    this.gridHelper.material.opacity = opacity;
+    (this.gridHelper.material as THREE.Material).transparent = true;
+    (this.gridHelper.material as THREE.Material).opacity = opacity;
 
     this.root.add(this.gridHelper);
     this.gridHelper.updateMatrixWorld(false);
