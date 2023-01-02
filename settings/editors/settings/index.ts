@@ -73,6 +73,8 @@ function setupSettings() {
     new settingEditorClass(editorContentElt, data.projectClient);
   }
 
+  const localSettingsTooltip = SupClient.html("section", { parent: mainElt, textContent: SupClient.i18n.t(`settingsEditors:localTooltip`) });
+
   // Remove general section if it's empty
   if (generalSection.root.children.length === 0) {
     mainElt.removeChild(generalSection.header);

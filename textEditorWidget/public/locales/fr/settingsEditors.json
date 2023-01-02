@@ -1,0 +1,9 @@
+{
+  "TextEditor": {
+    "label": "Éditeur de texte",
+    "tabSize": "Taille d'indentation",
+    "useSoftTab": "Indenter avec des espaces",
+    "keyMap": "Mappage des touches",
+    "theme": "Thème"
+  }
+}

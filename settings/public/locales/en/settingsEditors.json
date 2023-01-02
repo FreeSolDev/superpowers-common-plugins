@@ -2,5 +2,6 @@
   "namespaces": {
     "general": "General",
     "editors": "Editors"
-  }
+  },
+  "localTooltip": "* Local settings"
 }

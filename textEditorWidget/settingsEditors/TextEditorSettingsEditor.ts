@@ -33,7 +33,7 @@ export default class TextEditorSettingsEditor {
     projectClient.subResource("textEditorSettings", this);
 
     // User settings
-    const keyMapRow = SupClient.table.appendRow(tbody, SupClient.i18n.t("settingsEditors:TextEditor.keyMap"));
+    const keyMapRow = SupClient.table.appendRow(tbody, SupClient.i18n.t("settingsEditors:TextEditor.keyMap"), { class: "local" });
     this.keyMapField = SupClient.table.appendSelectBox(keyMapRow.valueCell, { "sublime": "Sublime", "emacs": "Emacs", "vim": "Vim" }, textEditorUserSettings.pub.keyMap);
     this.keyMapField.addEventListener("change", (event: any) => {
       textEditorUserSettings.edit("keyMap", event.target.value);
@@ -43,7 +43,7 @@ export default class TextEditorSettingsEditor {
       this.keyMapField.value = textEditorUserSettings.pub.keyMap;
     });
 
-    const themeRow = SupClient.table.appendRow(tbody, SupClient.i18n.t("settingsEditors:TextEditor.theme"));
+    const themeRow = SupClient.table.appendRow(tbody, SupClient.i18n.t("settingsEditors:TextEditor.theme"), { class: "local" });
     const themeValues: { [value: string]: string } = { "default": "default" };
     for (const mode of modes) {
       const modeNoExtension = mode.slice(0, mode.length - 4);
